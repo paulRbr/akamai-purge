@@ -2,6 +2,19 @@
 galaxy_info:
   author: John Buhay
   description: This role hits the akamai REST api for certain purge related tasks.
-  license: license (GPLv2, CC-BY, etc)
+  license: BSD
   min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    version:
+    - all
   dependencies: []
+  galaxy_tags:
+    - akamai
+    - ccu

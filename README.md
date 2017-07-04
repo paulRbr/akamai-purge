@@ -8,7 +8,6 @@ Requirements
 
 Most tasks require authentication, you will be prompted using prompt.yml for username//password, expecting first.lastname which will resolve to first.lastname@example.com.
 This user must have access to akamai control center.
-Unfortunately you will always be prompted even if you are running akamai_query, which does not require authentication
 
 Role Variables
 --------------
@@ -18,9 +17,16 @@ Role Variables
 Extra Variables
 ---------------
 
-  - notify_team - use this to add flowdock notifications to another team specified in group_vars/global/team_profiles
+Akamai related extra variables:
   - akamai_action=invalidate - use this to overide the default value, which is 'remove' with 'invalidate'
   - queue_name - use this to override the default value, which is 'default', only other option is 'emergency'
+
+Enable slack notification with these variables:
+  - slack_token - Slack token to an incoming webhook
+  - slack_channel - Which channel to send notification to
+  - slack_username - which username to use when notifying Slack
+  - slack_icon_url - override icon used during notification
+
 
 Dependencies
 ------------
@@ -39,7 +45,8 @@ Example Playbook
 
 This role is independently used.
 
-Usage: ansible-playbook akamai.yml -i inventory/local --tags akamai_status
+    Usage: ansible-playbook akamai.yml -i inventory/local --tags akamai_status
+
 successful response looks like this:
 
 ```json
@@ -51,11 +58,10 @@ successful response looks like this:
     }
 ```
 
-Usage: ansible-playbook akamai.yml -i inventory/local --tags akamai_purge -vv
+    Usage: ansible-playbook akamai.yml -i inventory/local --tags akamai_purge -vv
 
 
-A purge request is submitted by sending a POST request to the /ccu/v2/queues/default or /ccu/v2/queues/emergency resource. 
-The Content-Type must be application/json.
+A purge request is submitted by sending a POST request to the /ccu/v2/queues/default or /ccu/v2/queues/emergency resource. The Content-Type must be application/json.
 
 To construct the request object:
 
@@ -151,5 +157,7 @@ BSD
 Author Information
 ------------------
 
-John Buhay
-jnbuhaynyc+github@gmail.com
+John Buhay jnbuhaynyc+github@gmail.com
+
+Contributors:
+- Paul Bonaud paul+gh@bonaud.fr
